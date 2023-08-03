@@ -56,13 +56,27 @@ stages:
         repository: 'testbenchnet/basicdocker'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-
-    - task: AzureRmWebAppDeployment@4
+    - task: AzureWebAppContainer@1
       inputs:
-        ConnectionType: 'AzureRM'
         azureSubscription: 'Visual Studio Professional with MSDN (acda883c-5d94-441c-b0a6-114732847932)'
-        appType: 'webAppContainer'
-        WebAppName: 
-        DockerNamespace: 'hub.docker.com'
-        DockerRepository: 'testbenchnet/basicdocker'
-        DockerImageTag: 'latest'
+        appName: 'canyonblack-basicdocker-dev-as'
+        containers: 'https://hub.docker.com/repository/docker/testbenchnet/basicdocker'
+
+     
+    # - task: AzureWebApp@1
+    #   displayName: 'Deploy'
+    #   inputs:
+    #     appType: webAppLinux
+    #     azureSubscription: '$(AzureSubscriptionName)'
+    #     appName: '$(WebAppNameTest)'
+    #     package: '$(Pipeline.Workspace)/web/*.zip'
+
+    # - task: AzureRmWebAppDeployment@4
+    #   inputs:
+    #     ConnectionType: 'AzureRM'
+    #     azureSubscription: 'Visual Studio Professional with MSDN (acda883c-5d94-441c-b0a6-114732847932)'
+    #     appType: 'webAppContainer'
+    #     WebAppName: 
+    #     DockerNamespace: 'hub.docker.com'
+    #     DockerRepository: 'testbenchnet/basicdocker'
+    #     DockerImageTag: 'latest'
