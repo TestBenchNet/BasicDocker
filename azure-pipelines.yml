@@ -21,8 +21,6 @@ variables:
   azureSubscriptionName: 'Visual Studio Professional with MSDN (acda883c-5d94-441c-b0a6-114732847932)'
   containerName: 'testbenchnet/basicdocker:$(tag)'
   appServiceName: 'canyonblack-basicdocker-dev-as'
-  //sourceVersion: '$(SourceVersion)'
-  //tag: '$(sourceVersion)'
 
 stages:
 - stage: Build
@@ -42,8 +40,9 @@ stages:
         azureSubscription: '$(azureSubscriptionName)'
         appName: '$(appServiceName)'
         containers: '$(containerName)'
-    - task: GitHubComment@0
-      inputs:
-        gitHubConnection: 'github.com_TestBenchNet'
-        repositoryName: 'TestBenchNet/BasicDocker'
-        comment: 'Deployed to $(appServiceName) build $(tag)'
+
+    # - task: GitHubComment@0
+    #   inputs:
+    #     gitHubConnection: 'github.com_TestBenchNet'
+    #     repositoryName: 'TestBenchNet/BasicDocker'
+    #     comment: 'Deployed to $(appServiceName) build $(tag)'
