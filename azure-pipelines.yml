@@ -37,5 +37,5 @@ stages:
         azureSubscription: 'Visual Studio Professional with MSDN (acda883c-5d94-441c-b0a6-114732847932)'
         appName: 'canyonblack-basicdocker-dev-as'
         #containers: 'https://hub.docker.com/repository/docker/testbenchnet/basicdocker$(tag)'
-        containers: 'basicdocker:$(tag)'
+        containers: 'testbenchnet/basicdocker:$(tag)'
         #containerCommand: 'docker run basicdocker -p 80:80'
