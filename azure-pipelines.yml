@@ -18,7 +18,9 @@ variables:
   tag: '$(Build.BuildId)'
   dockerRegistryServiceConnection: 'testbenchnet_dockerhub'
   imageRepository: 'testbenchnet/basicdocker'
-
+  azureSubscriptionName: 'Visual Studio Professional with MSDN (acda883c-5d94-441c-b0a6-114732847932)'
+  containerName: 'testbenchnet/basicdocker:$(tag)'
+  appServiceName: 'canyonblack-basicdocker-dev-as'
 
 stages:
 - stage: Build
@@ -32,10 +34,15 @@ stages:
         repository: $(imageRepository)
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
+    
     - task: AzureWebAppContainer@1
       inputs:
-        azureSubscription: 'Visual Studio Professional with MSDN (acda883c-5d94-441c-b0a6-114732847932)'
-        appName: 'canyonblack-basicdocker-dev-as'
-        #containers: 'https://hub.docker.com/repository/docker/testbenchnet/basicdocker$(tag)'
-        containers: 'testbenchnet/basicdocker:$(tag)'
-        #containerCommand: 'docker run basicdocker -p 80:80'
+        azureSubscription: '$(azureSubscriptionName)'
+        appName: '$(appServiceName)'
+        containers: '$(containerName)'
+
+    # - task: GitHubComment@0
+    #   inputs:
+    #     gitHubConnection: 'github.com_TestBenchNet'
+    #     repositoryName: 'TestBenchNet/BasicDocker'
+    #     comment: 'Deployed to $(appServiceName) build $(tag)'
