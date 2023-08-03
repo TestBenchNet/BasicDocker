@@ -15,14 +15,14 @@ resources:
 - repo: self
 
 variables:
-#  tag: '$(Build.BuildId)'
+  tag: '$(Build.BuildId)'
   dockerRegistryServiceConnection: 'testbenchnet_dockerhub'
   imageRepository: 'testbenchnet/basicdocker'
   azureSubscriptionName: 'Visual Studio Professional with MSDN (acda883c-5d94-441c-b0a6-114732847932)'
   containerName: 'testbenchnet/basicdocker:$(tag)'
   appServiceName: 'canyonblack-basicdocker-dev-as'
   //sourceVersion: '$(SourceVersion)'
-  tag: '$(sourceVersion)'
+//  tag: '$(sourceVersion)'
 
 stages:
 - stage: Build
@@ -36,8 +36,14 @@ stages:
         repository: $(imageRepository)
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
+    
     - task: AzureWebAppContainer@1
       inputs:
         azureSubscription: '$(azureSubscriptionName)'
         appName: '$(appServiceName)'
         containers: '$(containerName)'
+    - task: GitHubComment@0
+      inputs:
+        gitHubConnection: 'github.com_TestBenchNet'
+        repositoryName: 'TestBenchNet/BasicDocker'
+        comment: 'Deployed to $(appServiceName) build $(tag)'
