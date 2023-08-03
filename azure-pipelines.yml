@@ -16,6 +16,9 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  dockerRegistryServiceConnection: 'github.com_TestBenchNet'
+  imageRepository: 'testbenchnet/basicdocker'
+
 
 stages:
 - stage: Build
