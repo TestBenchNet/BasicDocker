@@ -16,7 +16,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
-  dockerRegistryServiceConnection: 'github.com_TestBenchNet'
+  dockerRegistryServiceConnection: 'testbenchnet_dockerhub'
   imageRepository: 'testbenchnet/basicdocker'
 
 
