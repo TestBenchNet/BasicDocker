@@ -33,3 +33,15 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/BasicDocker/Dockerfile'
         tags: |
           $(tag)
+
+- stage: PushToDockerHub
+  displayName: Push to Docker Hub
+  jobs:
+  - job: Push
+    steps:
+    - task: Docker@2
+      inputs:
+        command: 'push'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        repository: $(imageRepository)
+        
