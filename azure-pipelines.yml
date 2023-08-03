@@ -39,5 +39,5 @@ stages:
         azureSubscription: '$(azureSubscriptionName)'
         appName: '$(appServiceName)'
         containers: '$(containerName)'
-        containerCommand: -p 443:443 -p 80:80
+        //containerCommand: -p 443:443 -p 80:80
         
