@@ -56,3 +56,13 @@ stages:
         repository: 'testbenchnet/basicdocker'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
+
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Visual Studio Professional with MSDN (acda883c-5d94-441c-b0a6-114732847932)'
+        appType: 'webAppContainer'
+        WebAppName: 
+        DockerNamespace: 'hub.docker.com'
+        DockerRepository: 'testbenchnet/basicdocker'
+        DockerImageTag: 'latest'
