@@ -22,38 +22,14 @@ variables:
 
 stages:
 - stage: Build
-#   displayName: Build image
-#   jobs:
-#   - job: Build
-#     displayName: Build
-#     pool:
-#       vmImage: ubuntu-latest
-#     steps:
-#     - task: Docker@2
-#       displayName: Build an image
-#       inputs:
-#         command: build
-#         dockerfile: '$(Build.SourcesDirectory)/BasicDocker/Dockerfile'        
-#         tags: |
-#           $(tag)
 
-# - stage: PushToDockerHub
-#   displayName: Push to Docker Hub
-#   jobs:
-#   - job: Push
-#     steps:
-#     - task: Docker@2
-#       inputs:
-#         command: 'push'
-#         containerRegistry: $(dockerRegistryServiceConnection)
-#         repository: $(imageRepository)
   jobs:
   - job: Buildandpush
     steps:
     - task: Docker@2
       inputs:
-        containerRegistry: 'testbenchnet_dockerhub'
-        repository: 'testbenchnet/basicdocker'
+        containerRegistry: $(dockerRegistryServiceConnection)
+        repository: $(imageRepository)
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
     - task: AzureWebAppContainer@1
@@ -61,22 +37,3 @@ stages:
         azureSubscription: 'Visual Studio Professional with MSDN (acda883c-5d94-441c-b0a6-114732847932)'
         appName: 'canyonblack-basicdocker-dev-as'
         containers: 'https://hub.docker.com/repository/docker/testbenchnet/basicdocker'
-
-     
-    # - task: AzureWebApp@1
-    #   displayName: 'Deploy'
-    #   inputs:
-    #     appType: webAppLinux
-    #     azureSubscription: '$(AzureSubscriptionName)'
-    #     appName: '$(WebAppNameTest)'
-    #     package: '$(Pipeline.Workspace)/web/*.zip'
-
-    # - task: AzureRmWebAppDeployment@4
-    #   inputs:
-    #     ConnectionType: 'AzureRM'
-    #     azureSubscription: 'Visual Studio Professional with MSDN (acda883c-5d94-441c-b0a6-114732847932)'
-    #     appType: 'webAppContainer'
-    #     WebAppName: 
-    #     DockerNamespace: 'hub.docker.com'
-    #     DockerRepository: 'testbenchnet/basicdocker'
-    #     DockerImageTag: 'latest'
