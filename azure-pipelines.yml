@@ -26,7 +26,8 @@ stages:
 - stage: Build
 
   jobs:
-  - job: Buildandpush
+  - job: BuildAndPush
+    displayName: Build image and push to Docker Hub
     steps:
     - task: Docker@2
       inputs:
@@ -46,3 +47,4 @@ stages:
     #     gitHubConnection: 'github.com_TestBenchNet'
     #     repositoryName: 'TestBenchNet/BasicDocker'
     #     comment: 'Deployed to $(appServiceName) build $(tag)'
+    
