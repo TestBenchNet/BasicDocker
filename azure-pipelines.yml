@@ -22,7 +22,7 @@ variables:
   containerName: 'testbenchnet/basicdocker:$(tag)'
   appServiceName: 'canyonblack-basicdocker-dev-as'
   //sourceVersion: '$(SourceVersion)'
-//  tag: '$(sourceVersion)'
+  //tag: '$(sourceVersion)'
 
 stages:
 - stage: Build
